@@ -1,9 +1,11 @@
+import asyncio
 from flask import Flask, jsonify, request
 from cli import ld, get_wallet_info, st, mk, snd, get_wallet_summary, get_pending_count, addr
-import asyncio
+from flask_cors import CORS
 
 # Inisialisasi Flask
 app = Flask(__name__)
+CORS(app)
 
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
@@ -23,6 +25,15 @@ async def wallet_info():
         "public_key": public_key
     })
 
+@app.route("/wallet/balance", methods=["GET"])
+def wallet_balance():
+    nonce, balance = loop.run_until_complete(st())
+    return jsonify({
+        "address": addr,
+        "nonce": nonce,
+        "balance": balance
+    })
+
 @app.route("/wallet/send", methods=["POST"])
 def wallet_send():
     try:
@@ -30,11 +41,11 @@ def wallet_send():
         to = data.get("to")
         amount = float(data.get("amount"))
         message = data.get("message", None)
+        nonce = data.get("nonce")
 
         if not to or not amount:
             return jsonify({"error": "Missing parameters"}), 400
 
-        nonce, _ = loop.run_until_complete(st())
         tx, tx_hash = mk(to, amount, nonce+1, msg=message)
 
         success, result, duration, response = loop.run_until_complete(snd(tx))

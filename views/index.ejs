@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Multisend</h1>
+  <p>Balance: <%= balance ? balance.toFixed(6) + ' OCT' : 'N/A' %></p>
+  <form action="/multisend" method="post">
+    <input type="number" name="amount" id="">
+    <textarea name="addresses" id=""></textarea>
+    <button type="submit">Send</button>
+  </form>
+</body>
+</html>

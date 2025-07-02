@@ -3,4 +3,4 @@ uvicorn
 aiohttp
 hypercorn
 pynacl
-flask[async]
+flask-cors
