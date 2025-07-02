@@ -1,0 +1,6 @@
+flask
+uvicorn
+aiohttp
+hypercorn
+pynacl
+flask[async]
