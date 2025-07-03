@@ -16,9 +16,9 @@ Multisend to multiple addresses
 ![Logo Project](example/example1.png)
 
 ## 📋 Prerequisites
-- NodeJS v22
+- NodeJS v22 (https://nodejs.org/en)
 - npm
-- Python 3
+- Python 3 (https://www.python.org/)
 
 ## ⚙️ Installation
 1. Clone repository
