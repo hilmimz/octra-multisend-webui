@@ -1,23 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h2>Multisend Results</h2>
-  <ul>
-    <% results.forEach(r => { %>
-      <li>
-        <%= r.to %>: 
+<%- include('layouts/header') %>
+<section class="mx-auto p-10 m-5 shadow-2xl min-w-[1400px] max-w-[1400px]">
+  <h1 class="text-2xl text-center font-bold mb-5 text-sky-800">Octra Multisender</h1>
+  <div class="my-3">
+    <p class="text-emerald-700 font-bold">Multisend Completed!</p>
+    <p class="font-light text-gray-500"> <%- results.filter(item => item.success).length %>/<%- results.length %> Transaction success </p>
+  </div>
+  <table class="table-auto mx-auto">
+    <thead class="text-center border">
+      <tr class="font-bold">
+        <td class="border py-2 px-3">To</td>
+        <td class="border py-2 px-3">Status</td>
+        <td class="border py-2 px-3">Hash/Error</td>
+      </tr>
+    </thead>
+    <tbody class="border py-2 px-3">
+      <% results.forEach(r => { %>
+      <tr class="font-light border">
+        <td class="border py-2 px-3"><%= r.to %></td>
         <% if (r.success) { %>
-          ✅ Sent (<%= r.hash %>)
+        <td class="border py-2 px-3 text-center">✅</td>
+        <td class="border py-2 px-3"><%= r.hash %></td>
         <% } else { %>
-          ❌ Failed: <%= r.error %>
-        <% } %>
-      </li>
-    <% }) %>
-  </ul>
-</body>
-</html>
+        <td class="border py-2 px-3 text-center">❌</td>
+        <td class="border py-2 px-3"><%= r.error %></td>
+          <% } %>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('layouts/footer') %>

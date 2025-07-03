@@ -27,9 +27,10 @@ async def wallet_info():
 
 @app.route("/wallet/balance", methods=["GET"])
 def wallet_balance():
+    address, _ = get_wallet_info()
     nonce, balance = loop.run_until_complete(st())
     return jsonify({
-        "address": addr,
+        "address": address,
         "nonce": nonce,
         "balance": balance
     })
